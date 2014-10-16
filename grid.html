@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+
+	<title>Grid</title>
+
+	<script type="text/template" id="datagrid">
+	<table>
+		<thead>
+			<tr>
+			<% _.each(obj.columns, function(column) { %>
+			  <th class='headerCell' data-name='<%=column.name%>' data-type='<%=column.type%>'><%=column.headerText%></th>
+			<% }); %>
+			</tr>
+		</thead>
+		<tbody>
+		<% _.each(obj.data, function(row) { %>
+			<tr>
+			<% _.each(_.keys(row), function(key) { 
+				var column = _.where(obj.columns, { name: key }); 
+				if (_.pluck(obj.columns, 'name').indexOf(key) > -1) { 
+			%>
+			  <td class='rowCell' data-name='<%=key%>' data-type='<%=column ? column.pop().type : ""%>'><%=row[key]%></td>
+			<% } }); %>
+			</tr>
+		<% }); %>
+		</tbody>
+	</table>
+	</script>
+
+	<link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/pure/0.5.0/pure-min.css">
+	<link type="text/css" rel="stylesheet" href="./pikaday.min.css">
+	<link rel='stylesheet' href='./spectrum.css' />
+	<link type="text/css" rel="stylesheet" href="./grid.css">
+</head>
+<body style="padding:20px;">
+
+	<div id="gridContainer"></div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js"></script>
+	<script src='./spectrum.js'></script>
+	<script src="./pikaday.min.js"></script>
+	<script src="./app.js"></script>
+	<script src="./table.js"></script>
+	<script src="./grid.js"></script>
+
+	<script type="text/javascript">
+		app.grid = new app.Grid({ 
+			table: app.table, 
+			el: $('#gridContainer'),
+			template: _.template(app.templates.datagrid),
+		});
+
+		app.grid.render();
+	</script>
+
+</body>
+</html>
