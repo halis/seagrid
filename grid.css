@@ -11,7 +11,8 @@
 }
 
 .hidden {
-	display: none;
+	display: none !important;
+	visibility: hidden !important;
 }
 
 input[type=file] {

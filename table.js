@@ -59,7 +59,7 @@ app.getters = {
 	},
 };
 
-app.getters = {
+app.setters = {
 	String: function($el, val) {
 		return $el.val(val);
 	},

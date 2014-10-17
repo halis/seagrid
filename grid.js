@@ -73,11 +73,13 @@ app.Grid = Backbone.View.extend({
 			$('.editorCloseButton', $el).on('click', function(e) {
 				var $this = $(this);
 				$this.parent().removeClass('editing');
-				$this.parent().text($this.prev().val());
+				$this.parent().text(halis.fn.get($this.prev().get(0)));
 				$this.fadeOut(fadeTime).prev().fadeOut(fadeTime);
+
+				return halis.cancelEvent(e);
 			});
 
-			$('.editor', $el).fadeIn(fadeTime);
+			$('.editor', $el).fadeIn(fadeTime).removeClass('hidden');
 			$el.addClass('editing');
 		}
 	},
